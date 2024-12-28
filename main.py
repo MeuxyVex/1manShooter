@@ -4,7 +4,9 @@
 #Verifcation de pip                                 
 import subprocess
 import sys
-import importlib                                                                       
+import importlib
+
+import pygame.display                                                                       
 def verifierpip():
     try:
         import pip
@@ -55,13 +57,29 @@ if __name__ == "__main__":
     verifiepackage()
 
 ###################MAIN###################################################################################
+
+
+
+
+#main
 import pygame
+from Content import maingame, joueur
 pygame.init()
 
+#fenetre
 pygame.display.set_caption("OneManShooter")
-pygame.display.set_mode((1920, 1080))
+screen = pygame.display.set_mode((1920, 1080))
+image = pygame.image.load("assets/background.jpg")
+
+#jeu
 jeu = True
+game = maingame()
+
+#quitter
 while jeu:
+    screen.blit(image, (0, 0))
+    screen.blit(game.Player.image, game.Player.rect)
+    pygame.display.flip()
     for event  in pygame.event.get():
         if event.type == pygame.QUIT:
             jeu = False
