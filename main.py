@@ -68,20 +68,51 @@ pygame.init()
 
 #fenetre
 pygame.display.set_caption("OneManShooter")
-screen = pygame.display.set_mode((1920, 1080))
+screen = pygame.display.set_mode((1790, 1020))  
 image = pygame.image.load("assets/background.jpg")
 
 #jeu
 jeu = True
 game = maingame()
 
-#quitter
 while jeu:
+
+    #fenetre
     screen.blit(image, (0, 0))
+    # apliquer image
     screen.blit(game.Player.image, game.Player.rect)
+
+    #apliquer toute les images
+    game.Player.all_projectiles.draw(screen)
+
+    #projectile joueur
+    for projectile in game.Player.all_projectiles:
+        projectile.deplacement()
+
+    #gauche ou droit
+    if game.press.get(pygame.K_RIGHT) and game.Player.rect.x + game.Player.rect.width < screen.get_width():
+        game.Player.move_right()
+    elif game.press.get(pygame.K_LEFT) and game.Player.rect.x > 0:
+        game.Player.move_left()
+    
+
+    #ecran mis a jour 
     pygame.display.flip()
+    
+    #quit
     for event  in pygame.event.get():
         if event.type == pygame.QUIT:
             jeu = False
             pygame.quit()
             print("Fermeture du jeu")
+
+        #deplacement
+        elif event.type == pygame.KEYDOWN:
+            game.press[event.key] = True
+
+            if event.key == pygame.K_SPACE:
+                game.Player.launch_projectile()
+
+        elif event.type == pygame.KEYUP:
+            game.press[event.key] = False
+        
