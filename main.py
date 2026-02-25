@@ -67,8 +67,8 @@ from Content import maingame, joueur
 pygame.init()
 
 #fenetre
-pygame.display.set_caption("OneManShooter")
-screen = pygame.display.set_mode((1790, 1020))  
+pygame.display.set_caption("Smash1v1")
+screen = pygame.display.set_mode((1536, 1024))  
 image = pygame.image.load("assets/background.jpg")
 
 #jeu
