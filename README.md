@@ -1,1 +1,1 @@
-# 1manShooter
+# Projet info jeu 2026
