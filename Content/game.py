@@ -4,3 +4,4 @@ class maingame:
     def __init__(self):
         self.Player = joueur()
         self.press =  {}
+

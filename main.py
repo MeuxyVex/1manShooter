@@ -65,20 +65,50 @@ if __name__ == "__main__":
 import pygame
 from Content import maingame, joueur
 pygame.init()
-
+pygame.mixer.init()
+pygame.mixer.music.load("Assets/theme.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1) 
 #fenetre
 pygame.display.set_caption("Smash1v1")
-screen = pygame.display.set_mode((1536, 1024))  
-image = pygame.image.load("assets/background.jpg")
+info = pygame.display.Info()
+screen_width = info.current_w
+screen_height = info.current_h
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
+
+#hitbox
+platform_width = 1280
+platform_heiht = 300
+platform_x = (screen_width - platform_width) - 600 //2 
+platform_y = screen_height // 2 + 80
+platform_rect = pygame.Rect(platform_x, platform_y, platform_width, platform_heiht)
+
+
+#image fond
+image = pygame.image.load("assets/background.jpg")
+image = pygame.transform.scale(image, (screen_width, screen_height))
 #jeu
 jeu = True
 game = maingame()
 
+
+#Debug 
+print(f"debug {platform_rect.top}, {game.Player.rect}")
+
+
 while jeu:
+
 
     #fenetre
     screen.blit(image, (0, 0))
+
+    game.Player.applygravity(platform_rect)
+    
+    #Debug hitbox
+    pygame.draw.rect(screen, (255, 0, 0), platform_rect, 2) 
+    
+
     # apliquer image
     screen.blit(game.Player.image, game.Player.rect)
 
@@ -90,14 +120,11 @@ while jeu:
         projectile.deplacement()
 
     #gauche ou droit
-    if game.press.get(pygame.K_RIGHT) and game.Player.rect.x + game.Player.rect.width < screen.get_width():
+    if game.press.get(pygame.K_RIGHT):
         game.Player.move_right()
-    elif game.press.get(pygame.K_LEFT) and game.Player.rect.x > 0:
+    elif game.press.get(pygame.K_LEFT):
         game.Player.move_left()
-    
 
-    #ecran mis a jour 
-    pygame.display.flip()
     
     #quit
     for event  in pygame.event.get():
@@ -110,9 +137,18 @@ while jeu:
         elif event.type == pygame.KEYDOWN:
             game.press[event.key] = True
 
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_e:
                 game.Player.launch_projectile()
+
+            if event.key == pygame.K_SPACE:
+                game.Player.move_jump()
 
         elif event.type == pygame.KEYUP:
             game.press[event.key] = False
+
+    pygame.display.update()
+
+
+            
+            
         
