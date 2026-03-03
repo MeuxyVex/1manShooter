@@ -77,14 +77,22 @@ screen_height = info.current_h
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
 
-#hitbox
-platform_width = 1280
-platform_heiht = 300
-platform_x = (screen_width - platform_width) - 600 //2 
-platform_y = screen_height // 2 + 80
-platform_rect = pygame.Rect(platform_x, platform_y, platform_width, platform_heiht)
+if screen_width == 1920 and screen_height == 1080:
+    #hitbox
+    platform_width = 1280
+    platform_heiht = 300
+    platform_x = (screen_width - platform_width) - 600 //2 
+    platform_y = screen_height // 2 + 80
+    platform_rect = pygame.Rect(platform_x, platform_y, platform_width, platform_heiht)
 
+else:
+    print("Resolution error, your have to be in 1920 x 1080")
+    sys.exit()
+    
+    
 
+        
+    
 #image fond
 image = pygame.image.load("assets/background.jpg")
 image = pygame.transform.scale(image, (screen_width, screen_height))
@@ -93,20 +101,24 @@ jeu = True
 game = maingame()
 
 
-#Debug 
-print(f"debug {platform_rect.top}, {game.Player.rect}")
+#Debug
+debug = True
+
+if debug == True:
+    print(f"debug {platform_rect.top}, {game.Player.rect}")
 
 
 while jeu:
 
-
+    game.Player.clock.tick(60)
     #fenetre
     screen.blit(image, (0, 0))
 
     game.Player.applygravity(platform_rect)
     
     #Debug hitbox
-    pygame.draw.rect(screen, (255, 0, 0), platform_rect, 2) 
+    if debug == True:
+        pygame.draw.rect(screen, (255, 0, 0), platform_rect, 2) 
     
 
     # apliquer image

@@ -30,7 +30,7 @@ class joueur(pygame.sprite.Sprite):
         self.PV = 100
         self.MAX_PV = 100
         self.attaque = 10
-        self.vitesse = 3
+        self.vitesse = 6
         self.jumppower = -20
         self.gravity = 1
         self.velocity_y = 0

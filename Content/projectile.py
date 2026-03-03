@@ -5,7 +5,7 @@ class Projectile(pygame.sprite.Sprite):
     #constructeur
     def __init__(self, player):
         super().__init__()
-        self.vitesse = 5
+        self.vitesse = 10
         self.player = player
         self.image = pygame.image.load("assets/projectile.jpg")
         self.image = pygame.transform.scale(self.image, (100, 200))
