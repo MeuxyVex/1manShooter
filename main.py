@@ -94,7 +94,7 @@ else:
         
     
 #image fond
-image = pygame.image.load("assets/background.jpg")
+image = pygame.image.load("Assets/background.jpg")
 image = pygame.transform.scale(image, (screen_width, screen_height))
 #jeu
 jeu = True
@@ -102,7 +102,7 @@ game = maingame()
 
 
 #Debug
-debug = True
+debug = False
 
 if debug == True:
     print(f"debug {platform_rect.top}, {game.Player.rect}")
